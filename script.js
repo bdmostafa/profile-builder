@@ -7,20 +7,31 @@ const professionInput = document.getElementById('profession');
 profileForm.addEventListener('submit', (event) => {
     // To prevent reload form
     event.preventDefault();
-    // console.log(event);
-    const nameValue = nameInput.value;
-    const ageValue = ageInput.value;
-    const professionValue = professionInput.value;
 
-    const profileValue = `
-    <div class="profile__section">
-          <h3>Name: ${nameValue}</h3>
-          <p>Age: ${ageValue}</p>
-          <p>Profession: ${professionValue}</p>
-    </div>
-    `
-    profile.innerHTML += profileValue;
+    // Data captured through object
+    const profileData = {
+        name: nameInput.value,
+        age: ageInput.value,
+        profession: professionInput.value
+    }
+
+    // Pass parameter as an object
+    const formattedText = formatText(profileData);
+    profile.innerHTML += formattedText;
     nameInput.value = '';
-    ageValue.value = '';
-    professionValue.value = '';
+    ageInput.value = '';
+    professionInput.value = '';
 })
+
+// Object destructuring and receiving arguments
+function formatText({
+    name,
+    age,
+    profession
+}) {
+    return ` <div class="profile__section">
+          <h3>Name: ${name}</h3>
+          <p>Age: ${age}</p>
+          <p>Profession: ${profession}</p>
+        </div> `
+}
