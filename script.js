@@ -1,11 +1,18 @@
 const profile = document.querySelector('.profile');
 const profileForm = document.querySelector('.profileForm');
+const submitProfile = document.getElementById('submit');
 const nameInput = document.getElementById('name');
 const ageInput = document.getElementById('age');
 const professionInput = document.getElementById('profession');
 
+// IIFE - function called automatically
+(function loadEventLister() {
+    document.addEventListener('DOMContentLoaded', getProfiles);
+    submitProfile.addEventListener('click', profileSubmit);
+})();
+
 // Capture data from local storage
-document.addEventListener('DOMContentLoaded', () => {
+function getProfiles() {
     let profiles;
     if (localStorage.getItem('profiles')) profiles = JSON.parse(localStorage.getItem('profiles'))
     else profiles = [];
@@ -14,9 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
         formattedText += formatText(profile);
     });
     profile.innerHTML = formattedText;
-});
+}
 
-profileForm.addEventListener('submit', (event) => {
+// Submit profile data
+function profileSubmit(event) {
     // To prevent reload form
     event.preventDefault();
 
@@ -34,7 +42,7 @@ profileForm.addEventListener('submit', (event) => {
     nameInput.value = '';
     ageInput.value = '';
     professionInput.value = '';
-})
+}
 
 // Object destructuring, receiving arguments and creating text format from that object
 function formatText({
@@ -49,6 +57,7 @@ function formatText({
         </div> `
 }
 
+// Save profile data to local storage
 function saveToLocalStorage(profileData) {
     // To handle multiple objects in Local Storage
     let profiles;

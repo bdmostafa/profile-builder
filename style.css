@@ -15,11 +15,10 @@ h1 {
     font-size: 2rem;
 }
 
-.profile {}
-
 .profile__section {
     border: 1px solid gray;
     padding: 10px;
+    margin-bottom: 10px;
 }
 
 .profileForm {
