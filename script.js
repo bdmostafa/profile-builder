@@ -16,7 +16,8 @@ profileForm.addEventListener('submit', (event) => {
     }
 
     // Pass parameter as an object
-    const formattedText = formatText(profileData);
+    let formattedText = formatText(profileData);
+    saveToLocalStorage(profileData); // For local storage
     profile.innerHTML += formattedText;
     nameInput.value = '';
     ageInput.value = '';
@@ -34,4 +35,21 @@ function formatText({
           <p>Age: ${age}</p>
           <p>Profession: ${profession}</p>
         </div> `
+}
+
+function saveToLocalStorage(profileData) {
+    // To handle multiple objects in Local Storage
+    let profiles;
+
+    if (localStorage.getItem('profiles')) {
+        // Converting the previous storage data into objects using JSON.parse
+        profiles = JSON.parse(localStorage.getItem('profiles'))
+        profiles.push(profileData);
+        localStorage.setItem('profiles', JSON.stringify(profiles));
+    } else {
+        // If 'profiles' is not created before
+        profiles = [];
+        profiles.push(profileData);
+        localStorage.setItem('profiles', JSON.stringify(profiles));
+    }
 }
