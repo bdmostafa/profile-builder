@@ -42,14 +42,12 @@ function saveToLocalStorage(profileData) {
     let profiles;
 
     if (localStorage.getItem('profiles')) {
-        // Converting the previous storage data into objects using JSON.parse
+        // Converting the previous storage data into objects/real data using JSON.parse
         profiles = JSON.parse(localStorage.getItem('profiles'))
-        profiles.push(profileData);
-        localStorage.setItem('profiles', JSON.stringify(profiles));
     } else {
         // If 'profiles' is not created before
         profiles = [];
-        profiles.push(profileData);
-        localStorage.setItem('profiles', JSON.stringify(profiles));
     }
+    profiles.push(profileData);
+    localStorage.setItem('profiles', JSON.stringify(profiles));
 }
