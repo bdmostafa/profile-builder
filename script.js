@@ -4,6 +4,18 @@ const nameInput = document.getElementById('name');
 const ageInput = document.getElementById('age');
 const professionInput = document.getElementById('profession');
 
+// Capture data from local storage
+document.addEventListener('DOMContentLoaded', () => {
+    let profiles;
+    if (localStorage.getItem('profiles')) profiles = JSON.parse(localStorage.getItem('profiles'))
+    else profiles = [];
+    let formattedText = '';
+    profiles.forEach(profile => {
+        formattedText += formatText(profile);
+    });
+    profile.innerHTML = formattedText;
+});
+
 profileForm.addEventListener('submit', (event) => {
     // To prevent reload form
     event.preventDefault();
@@ -24,7 +36,7 @@ profileForm.addEventListener('submit', (event) => {
     professionInput.value = '';
 })
 
-// Object destructuring and receiving arguments
+// Object destructuring, receiving arguments and creating text format from that object
 function formatText({
     name,
     age,
