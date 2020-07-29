@@ -28,20 +28,25 @@ function profileSubmit(event) {
     // To prevent reload form
     event.preventDefault();
 
-    // Data captured through object
-    const profileData = {
-        name: nameInput.value,
-        age: ageInput.value,
-        profession: professionInput.value
-    }
+    // Validation input data
+    if (nameInput.value === '' || ageInput.value === '' || professionInput.value === '') {
+        alert('Please provide correct information');
+    } else {
+        // Data captured through object
+        const profileData = {
+            name: nameInput.value,
+            age: ageInput.value,
+            profession: professionInput.value
+        }
 
-    // Pass parameter as an object
-    let formattedText = formatText(profileData);
-    saveToLocalStorage(profileData); // For local storage
-    profile.innerHTML += formattedText;
-    nameInput.value = '';
-    ageInput.value = '';
-    professionInput.value = '';
+        // Pass parameter as an object
+        let formattedText = formatText(profileData);
+        saveToLocalStorage(profileData); // For local storage
+        profile.innerHTML += formattedText;
+        nameInput.value = '';
+        ageInput.value = '';
+        professionInput.value = '';
+    }
 }
 
 // Object destructuring, receiving arguments and creating text format from that object
