@@ -1,6 +1,7 @@
 (function () {
     const profile = document.querySelector('.profile');
-    const profileForm = document.querySelector('.profileForm');
+    // const deleteProfile = document.getElementById('delete');
+    const allClearBtn = document.getElementById('allClear');
     const submitProfile = document.getElementById('submit');
     const nameInput = document.getElementById('name');
     const ageInput = document.getElementById('age');
@@ -10,13 +11,17 @@
     (function loadEventLister() {
         document.addEventListener('DOMContentLoaded', getProfiles);
         submitProfile.addEventListener('click', profileSubmit);
+        // deleteProfile.addEventListener('click', deleteFromLocalStorage);
+        allClearBtn.addEventListener('click', deleteAllFromLocalStorage);
     })();
 
     // Capture data from local storage
     function getProfiles() {
         let profiles;
-        if (localStorage.getItem('profiles')) profiles = JSON.parse(localStorage.getItem('profiles'))
-        else profiles = [];
+        if (localStorage.getItem('profiles')) {
+            allClearBtn.style.visibility = 'visible';
+            profiles = JSON.parse(localStorage.getItem('profiles'))
+        } else profiles = [];
         let formattedText = '';
         profiles.forEach(profile => {
             formattedText += formatText(profile);
@@ -42,6 +47,7 @@
 
             // Pass parameter as an object
             let formattedText = formatText(profileData);
+            allClearBtn.style.visibility = 'visible';
             saveToLocalStorage(profileData); // For local storage
             profile.innerHTML += formattedText;
             nameInput.value = '';
@@ -78,4 +84,24 @@
         profiles.push(profileData);
         localStorage.setItem('profiles', JSON.stringify(profiles));
     }
+
+    // Delete All profiles from local storage
+    function deleteAllFromLocalStorage() {
+        localStorage.removeItem('profiles');
+        allClearBtn.style.visibility = 'none';
+        profile.innerHTML = '';
+    }
+
+    // Delete profile from local storage
+    /* function deleteFromLocalStorage(event) {
+        if (localStorage.getItem('profiles')) {
+            localStorage.removeItem('profiles')
+        }
+        let formattedText = '';
+        profiles.forEach(profile => {
+            formattedText += formatText(profile);
+        });
+        profile.innerHTML = formattedText;
+    }
+    */
 })();
